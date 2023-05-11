@@ -1,6 +1,7 @@
 import React from 'react';
 import {createElement} from './utils.js';
 import './styles.css';
+import {showSelectionTimes} from './utils.js';
 
 /**
  * Приложение
@@ -28,18 +29,9 @@ function App({store}) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
-                {item.timesSelected ? (
-                  <div className="Item-selections">{`Выделяли ${
-                    item.timesSelected
-                  } ${
-                    [1, 5, 6, 7, 8, 9, 0].includes(item.timesSelected % 10) ||
-                    [12, 13, 14].includes(item.timesSelected % 100)
-                      ? 'раз'
-                      : 'раза'
-                  }`}</div>
-                ) : (
-                  ''
-                )}
+                <div className="Item-selections">
+                  {showSelectionTimes(item.timesSelected)}
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

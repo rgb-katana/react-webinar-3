@@ -1,17 +1,17 @@
+import {globalCodeGenerator} from './utils.js';
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.counter = initState.list.length;
     this.listeners = []; // Слушатели изменений состояния
   }
 
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
-   * @returns {Function} Функция отписки
+   * @returns с{Function} Функция отписки
    */
   subscribe(listener) {
     this.listeners.push(listener);
@@ -45,7 +45,10 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: ++this.counter, title: 'Новая запись'}],
+      list: [
+        ...this.state.list,
+        {code: globalCodeGenerator(), title: 'Новая запись'},
+      ],
     });
   }
 
@@ -69,18 +72,23 @@ class Store {
       ...this.state,
       list: this.state.list.map((item) => {
         if (item.selected) {
-          item.selected = false;
-          return item;
+          return {
+            ...item,
+            selected: false,
+          };
         }
         if (item.code === code) {
-          item.selected = true;
-          if (!item.timesSelected) {
-            item.timesSelected = 0;
-          }
-          item.timesSelected++;
-        } else item.selected = false;
-        console.log(item);
-        return item;
+          return {
+            ...item,
+            selected: true,
+            timesSelected: item.timesSelected ? item.timesSelected + 1 : 1,
+          };
+        } else {
+          return {
+            ...item,
+            selected: false,
+          };
+        }
       }),
     });
   }
