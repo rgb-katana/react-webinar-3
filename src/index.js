@@ -13,14 +13,14 @@ const store = new Store({
     {code: 5, title: 'Запись'},
     {code: 6, title: 'Шестая запись'},
     {code: 7, title: 'Седьмая запись'},
-  ]
+  ],
 });
 
 const root = createRoot(document.getElementById('root'));
 
 store.subscribe(() => {
-  root.render(<App store={store}/>);
+  root.render(<App store={store} />);
 });
 
 // Первый рендер приложения
-root.render(<App store={store}/>);
+root.render(<App store={store} />);
