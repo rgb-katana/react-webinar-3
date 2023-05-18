@@ -1,0 +1,31 @@
+.Cart-item {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px dashed #ccc;
+}
+
+.Cart-item:first-child {
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px dashed #ccc;
+}
+
+.Item-code,
+.Item-price,
+.Item-quantity {
+  padding: 20px 10px 20px 20px;
+}
+
+.Item-title {
+  padding: 20px 10px;
+}
+
+.Item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
+}
+
+.Item-price {
+  margin-left: auto;
+}
