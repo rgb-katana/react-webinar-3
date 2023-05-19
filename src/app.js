@@ -44,7 +44,7 @@ function App({store}) {
   };
 
   return (
-    <PageLayout>
+    <>
       {isCartOpen ? (
         <CartModal
           cart={cart}
@@ -54,10 +54,12 @@ function App({store}) {
       ) : (
         ''
       )}
-      <Head title="Магазин" />
-      <Controls cart={cart} onOpenCart={callbacks.onOpenCart} />
-      <List list={list} onAddToCart={callbacks.onAddToCart} />
-    </PageLayout>
+      <PageLayout>
+        <Head title="Магазин" />
+        <Controls cart={cart} onOpenCart={callbacks.onOpenCart} />
+        <List list={list} onAddToCart={callbacks.onAddToCart} />
+      </PageLayout>
+    </>
   );
 }
 

@@ -4,16 +4,19 @@ import Item from '../item';
 import './style.css';
 import CartItem from '../cart-item';
 
-function List({list, onAddToCart, onClearItem, onCloseCart}) {
+const renderList = (item, onAddToCart, onClearItem) => {
+  if (item.quantity) {
+    return <CartItem item={item} onClearItem={onClearItem} />;
+  }
+  return <Item item={item} onAddToCart={onAddToCart} />;
+};
+
+function List({list, onAddToCart, onClearItem}) {
   return (
     <div className="List">
       {list.map((item) => (
         <div key={item.code} className="List-item">
-          {onClearItem ? (
-            <CartItem item={item} onClearItem={onClearItem} />
-          ) : (
-            <Item item={item} onAddToCart={onAddToCart} />
-          )}
+          {renderList(item, onAddToCart, onClearItem)}
         </div>
       ))}
     </div>
@@ -28,10 +31,6 @@ List.propTypes = {
   ).isRequired,
   onClearItem: PropTypes.func,
   onSelectItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  onSelectItem: () => {},
 };
 
 export default React.memo(List);
