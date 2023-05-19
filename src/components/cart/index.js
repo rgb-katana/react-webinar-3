@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 import CartList from '../cart-list';
-import {cartTotalSum} from '../../utils';
+import { cartTotalSum } from '../../utils';
 
-function Cart({props}) {
+function Cart({ props }) {
   // const [cart, setCart] = useState(props.cart);
 
   return (
@@ -15,8 +15,12 @@ function Cart({props}) {
       </div>
       <CartList props={props} />
       <div className="Cart-total">
-        <div className="Cart-total-title">Итого</div>
-        <div className="Cart-total-sum">{`${cartTotalSum(props.cart)}₽`}</div>
+        <div className="Cart-total-title">
+          <span className="bold">Итого</span>
+        </div>
+        <div className="Cart-total-sum">
+          <span className="bold">{`${cartTotalSum(props.cart)}₽`}</span>
+        </div>
       </div>
     </div>
   );
