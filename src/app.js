@@ -17,7 +17,7 @@ function App({store}) {
   const isCartOpen = store.getState().isCartOpen;
 
   const callbacks = {
-    // Здесь изменяю логику удаления на добавление в корзину
+    // Добавление в корзину
     onAddToCart: useCallback(
       (item) => {
         store.addItemToCart(item);
@@ -25,7 +25,7 @@ function App({store}) {
       [store]
     ),
 
-    // Здесь открытие модального кона
+    // Открытие модального кона
     onOpenCart: useCallback(() => {
       store.setCartOpen();
     }, [store]),
@@ -62,7 +62,6 @@ function App({store}) {
       <PageLayout>
         <Head title="Магазин" />
         <Controls cart={cart} onOpenCart={callbacks.onOpenCart} />
-        {/* <List list={list} onAddToCart={callbacks.onAddToCart} /> */}
         <List list={list} render={render} />
       </PageLayout>
     </>
