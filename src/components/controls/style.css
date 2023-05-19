@@ -10,3 +10,11 @@
 .Controls-button > button {
   padding: 0px 10px;
 }
+
+.Cart-info {
+  padding: 20px 20px 20px 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
