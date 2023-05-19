@@ -4,6 +4,7 @@ import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
 import CartModal from './components/cart-modal';
+import Item from './components/item';
 
 /**
  * Приложение
@@ -43,6 +44,10 @@ function App({store}) {
     }, [store]),
   };
 
+  const render = (item) => {
+    return <Item item={item} onAddToCart={callbacks.onAddToCart} />;
+  };
+
   return (
     <>
       {isCartOpen ? (
@@ -57,7 +62,8 @@ function App({store}) {
       <PageLayout>
         <Head title="Магазин" />
         <Controls cart={cart} onOpenCart={callbacks.onOpenCart} />
-        <List list={list} onAddToCart={callbacks.onAddToCart} />
+        {/* <List list={list} onAddToCart={callbacks.onAddToCart} /> */}
+        <List list={list} render={render} />
       </PageLayout>
     </>
   );

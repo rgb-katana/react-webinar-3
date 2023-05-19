@@ -4,19 +4,12 @@ import Item from '../item';
 import './style.css';
 import CartItem from '../cart-item';
 
-const renderList = (item, onAddToCart, onClearItem) => {
-  if (item.quantity) {
-    return <CartItem item={item} onClearItem={onClearItem} />;
-  }
-  return <Item item={item} onAddToCart={onAddToCart} />;
-};
-
-function List({list, onAddToCart, onClearItem}) {
+function List({list, render}) {
   return (
     <div className="List">
       {list.map((item) => (
         <div key={item.code} className="List-item">
-          {renderList(item, onAddToCart, onClearItem)}
+          {render(item)}
         </div>
       ))}
     </div>

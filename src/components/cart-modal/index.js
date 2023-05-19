@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import './style.css';
 import {cartTotalSum} from '../../utils';
 import List from '../list';
+import CartItem from '../cart-item';
 
 function CartModal({cart, onClearItem, onCloseCart}) {
+  const render = (item) => {
+    return <CartItem onClearItem={onClearItem} item={item} />;
+  };
+
   return (
     <div className="Cart-modal">
       <div className="Cart">
@@ -12,8 +17,7 @@ function CartModal({cart, onClearItem, onCloseCart}) {
           <h2>Корзина</h2>
           <button onClick={onCloseCart}>Закрыть</button>
         </div>
-        <List list={cart} onClearItem={onClearItem} onCloseCart={onCloseCart} />
-        {/* <CartList props={props} /> */}
+        <List list={cart} render={render} />
         <div className="Cart-total">
           <div className="Cart-total-title">
             <span className="bold">Итого</span>

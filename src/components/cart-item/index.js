@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 
 function CartItem(props) {
+  console.log(props);
   const callbacks = {
     onClearItem: (e) => {
       e.stopPropagation();
