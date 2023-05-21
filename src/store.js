@@ -61,8 +61,15 @@ class Store {
         cartTotal: cartTotalSum(newCart),
       });
     } else {
-      const newQuantity = existingItem.quantity + 1;
-      const newCart = [...this.state.cart, {...item, quantity: newQuantity}];
+      const newCart = this.state.cart.map((cartItem) => {
+        if (cartItem.code === item.code) {
+          return {
+            ...cartItem,
+            quantity: cartItem.quantity + 1,
+          };
+        }
+        return cartItem;
+      });
       this.setState({
         ...this.state,
         cart: newCart,
