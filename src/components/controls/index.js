@@ -1,26 +1,28 @@
 import React from 'react';
-import './style.css';
 import {cartTotalSum} from '../../utils';
-
 import {plural} from '../../utils';
+import PropTypes from 'prop-types';
 
-const cartContent = (cart) => {
-  if (cart.length > 0) {
-    return `${cart.length} ${plural(cart.length, {
+import './style.css';
+
+const cartContent = (cartItems, cartTotal) => {
+  if (cartItems > 0) {
+    return `${cartItems} ${plural(cartItems, {
       one: 'товар',
       few: 'товара',
       many: 'товаров',
-    })} / ${cartTotalSum(cart)} ₽`;
+    })} / ${cartTotal} ₽`;
   } else {
     return 'пусто';
   }
 };
 
-function Controls({cart, onOpenCart}) {
+function Controls({cartTotal, cartItems, onOpenCart}) {
   return (
     <div className="Controls">
       <div className="Cart-info">
-        В корзине: <span className="bold">{cartContent(cart)}</span>
+        В корзине:{' '}
+        <span className="bold">{cartContent(cartItems, cartTotal)}</span>
       </div>
       <div className="Controls-button">
         <button onClick={() => onOpenCart()}>Перейти</button>
@@ -28,5 +30,15 @@ function Controls({cart, onOpenCart}) {
     </div>
   );
 }
+
+Controls.PropTypes = {
+  cartTotal: PropTypes.string.isRequired,
+  cartItems: PropTypes.number.isRequired,
+  onOpenCart: PropTypes.func.isRequired,
+};
+
+Controls.defaultProps = {
+  onOpenCart: () => {},
+};
 
 export default React.memo(Controls);

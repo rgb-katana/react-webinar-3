@@ -5,6 +5,7 @@ import Head from './components/head';
 import PageLayout from './components/page-layout';
 import CartModal from './components/cart-modal';
 import Item from './components/item';
+import ModalLayout from './components/modal-layout';
 
 /**
  * Приложение
@@ -15,6 +16,8 @@ function App({store}) {
   const list = store.getState().list;
   const cart = store.getState().cart;
   const isCartOpen = store.getState().isCartOpen;
+  const cartTotal = store.getState().cartTotal;
+  const cartItems = store.getState().cartItems;
 
   const callbacks = {
     // Добавление в корзину
@@ -51,17 +54,23 @@ function App({store}) {
   return (
     <>
       {isCartOpen ? (
-        <CartModal
-          cart={cart}
-          onClearItem={callbacks.onClearItem}
-          onCloseCart={callbacks.onCloseCart}
-        />
+        <ModalLayout>
+          <CartModal
+            cart={cart}
+            onClearItem={callbacks.onClearItem}
+            onCloseCart={callbacks.onCloseCart}
+          />
+        </ModalLayout>
       ) : (
         ''
       )}
       <PageLayout>
         <Head title="Магазин" />
-        <Controls cart={cart} onOpenCart={callbacks.onOpenCart} />
+        <Controls
+          cartTotal={cartTotal}
+          cartItems={cartItems}
+          onOpenCart={callbacks.onOpenCart}
+        />
         <List list={list} render={render} />
       </PageLayout>
     </>

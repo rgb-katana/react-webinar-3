@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import {plural} from '../../utils';
 import './style.css';
 
-function Item(props) {
+function Item({item, onAddToCart}) {
   const callbacks = {
     onAddToCart: (e) => {
       e.stopPropagation();
-      props.onAddToCart(props.item);
+      onAddToCart(item);
     },
   };
 
   return (
     <div className="Item">
-      <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">{props.item.title}</div>
-      <div className="Item-price">{props.item.price} &#x20bd;</div>
+      <div className="Item-code">{item.code}</div>
+      <div className="Item-title">{item.title}</div>
+      <div className="Item-price">
+        {item.price.toLocaleString('ru')} &#x20bd;
+      </div>
       <div className="Item-actions">
         <button onClick={callbacks.onAddToCart}>Добавить</button>
       </div>
@@ -26,17 +28,14 @@ function Item(props) {
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
+    price: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
-  onSelect: PropTypes.func,
+  onAddToCart: PropTypes.func.isRequired,
 };
 
 Item.defaultProps = {
-  onDelete: () => {},
-  onSelect: () => {},
+  onAddToCart: () => {},
 };
 
 export default React.memo(Item);

@@ -20,10 +20,15 @@ List.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
+      price: PropTypes.number,
+      title: PropTypes.string,
     })
   ).isRequired,
-  onClearItem: PropTypes.func,
-  onSelectItem: PropTypes.func,
+  render: PropTypes.func.isRequired,
+};
+
+List.defaultProps = {
+  render: () => {},
 };
 
 export default React.memo(List);

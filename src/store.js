@@ -1,4 +1,8 @@
-import { generateCode } from './utils';
+// import {cartTotalSum} from '../../utils';
+// import {plural} from '../../utils';
+// import cartItem from './components/cart-item';
+
+import {cartTotalSum} from './utils';
 
 /**
  * Хранилище состояния приложения
@@ -18,7 +22,7 @@ class Store {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
+      this.listeners = this.listeners.filter((item) => item !== listener);
     };
   }
 
@@ -45,23 +49,29 @@ class Store {
    */
   addItemToCart(item) {
     const existingItem = this.state.cart.find(
-      cartItem => cartItem.code === item.code
+      (cartItem) => cartItem.code === item.code
     );
 
     if (!existingItem) {
-      const newCart = [...this.state.cart, { ...item, quantity: 1 }];
+      const newCart = [...this.state.cart, {...item, quantity: 1}];
       this.setState({
         ...this.state,
         cart: newCart,
+        cartItems: newCart.length,
+        cartTotal: cartTotalSum(newCart),
       });
     } else {
-      const newCart = this.state.cart.map(cartItem => {
+      const newCart = this.state.cart.map((cartItem) => {
         if (cartItem.code === item.code) {
           cartItem.quantity++;
         }
         return cartItem;
       });
-      this.setState({ ...this.state, cart: newCart });
+      this.setState({
+        ...this.state,
+        cart: newCart,
+        cartTotal: cartTotalSum(newCart),
+      });
     }
   }
 
@@ -70,11 +80,12 @@ class Store {
    */
   clearItemFromCart(item) {
     const newCart = this.state.cart.filter(
-      cartItem => cartItem.code !== item.code
+      (cartItem) => cartItem.code !== item.code
     );
     this.setState({
       ...this.state,
       cart: newCart,
+      cartItems: newCart.length,
     });
   }
 
