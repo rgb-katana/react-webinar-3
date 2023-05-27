@@ -3,15 +3,18 @@ import propTypes from 'prop-types';
 import {numberFormat} from '../../utils';
 import {cn as bem} from '@bem-react/classname';
 import PropTypes from 'prop-types';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import './style.css';
 
 function ItemBasket(props) {
   const cn = bem('ItemBasket');
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const onNavigateHandler = () => navigate(props.item._id);
+  // const onNavigateHandler = () => {
+  //   props.onClose();
+  //   navigate(props.item._id);
+  // };
 
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
@@ -20,10 +23,15 @@ function ItemBasket(props) {
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>
+      {/* <div className={cn('title')}>
         <span className={cn('title-navigate')} onClick={onNavigateHandler}>
           {props.item.title}
         </span>
+      </div> */}
+      <div className={cn('title')}>
+        <Link className={cn('title-navigate')} to={props.item._id}>
+          {props.item.title}
+        </Link>
       </div>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>

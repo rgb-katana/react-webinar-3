@@ -12,8 +12,9 @@ function Main() {
   const store = useStore();
 
   useEffect(() => {
-    // store.actions.catalog.clear();
     store.actions.catalog.load();
+
+    return () => store.actions.catalog.clear();
   }, []);
 
   const select = useSelector((state) => ({

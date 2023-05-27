@@ -33,3 +33,8 @@
   cursor: pointer;
   border-bottom: 2px solid black;
 }
+
+.ItemBasket-title-navigate {
+  text-decoration: none;
+  color: black;
+}

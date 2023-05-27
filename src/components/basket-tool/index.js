@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat, plural} from '../../utils';
 import './style.css';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
 function BasketTool({sum, amount, onOpen}) {
   const cn = bem('BasketTool');
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const onGoToMainHandler = () => navigate('/');
+  // const onGoToMainHandler = () => navigate('/');
 
   return (
     <div className={cn()}>
-      <span className={cn('main')} onClick={onGoToMainHandler}>
+      <Link className={cn('main')} to={'/'}>
         Главная
-      </span>
+      </Link>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
         {amount
