@@ -10,8 +10,6 @@ import {useCallback} from 'react';
 
 function ItemPage() {
   const {id} = useParams();
-
-  console.log(id);
   const store = useStore();
 
   useEffect(() => {

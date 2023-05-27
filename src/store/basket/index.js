@@ -26,15 +26,12 @@ class Basket extends StoreModule {
       sum += result.price * result.amount;
       return result;
     });
-    console.log(this.store.getState());
     if (!exist) {
-      console.log(_id);
       const link = `api/v1/articles/${_id}`;
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
       const response = await fetch(`api/v1/articles/${_id}`);
       const json = await response.json();
-      console.log(json);
       const item = {
         price: json.result.price,
         title: json.result.title,
