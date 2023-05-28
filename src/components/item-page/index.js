@@ -47,7 +47,7 @@ ItemPageComponent.propTypes = {
     title: PropTypes.string,
   }),
   price: PropTypes.number,
-  edition: PropTypes.string,
+  edition: PropTypes.number,
   category: PropTypes.string,
   onAdd: PropTypes.func,
 };
