@@ -47,7 +47,7 @@ function ItemPage() {
 
   return (
     <PageLayout>
-      <Head title={select.item.item.category?.title}></Head>
+      <Head title={select.item.item?.title}></Head>
       <Menu>
         <BasketTool
           onOpen={callbacks.openModalBasket}
