@@ -38,17 +38,22 @@ function ItemPageComponent(props) {
   );
 }
 
-// Item.propTypes = {
-//   item: PropTypes.shape({
-//     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//     title: PropTypes.string,
-//     price: PropTypes.number,
-//   }).isRequired,
-//   onAdd: PropTypes.func,
-// };
+ItemPageComponent.propTypes = {
+  _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  title: PropTypes.string,
+  description: PropTypes.string,
+  madeIn: PropTypes.shape({
+    code: PropTypes.string,
+    title: PropTypes.string,
+  }),
+  price: PropTypes.number,
+  edition: PropTypes.string,
+  category: PropTypes.string,
+  onAdd: PropTypes.func,
+};
 
-// Item.defaultProps = {
-//   onAdd: () => {},
-// };
+ItemPageComponent.defaultProps = {
+  onAdd: () => {},
+};
 
 export default memo(ItemPageComponent);
