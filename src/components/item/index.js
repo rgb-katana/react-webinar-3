@@ -24,10 +24,7 @@ function Item(props) {
         </span>
       </div> */}
       <div className={cn('title')}>
-        <Link
-          className={cn('title-navigate')}
-          to={`/articles/${props.item._id}`}
-        >
+        <Link className={cn('title-navigate')} to={props.path}>
           {props.item.title}
         </Link>
       </div>

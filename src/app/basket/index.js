@@ -33,6 +33,7 @@ function Basket() {
             item={item}
             onRemove={callbacks.removeFromBasket}
             onClose={callbacks.closeModal}
+            path={`/articles/${item._id}`}
           />
         );
       },
