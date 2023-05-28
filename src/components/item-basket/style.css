@@ -31,7 +31,7 @@
 
 .ItemBasket-title-navigate:hover {
   cursor: pointer;
-  border-bottom: 2px solid black;
+  text-decoration: underline;
 }
 
 .ItemBasket-title-navigate {

@@ -7,15 +7,7 @@ class Item extends StoreModule {
 
   initState() {
     return {
-      title: '',
-      description: '',
-      category: '',
-      madeIn: {
-        title: '',
-        code: '',
-      },
-      price: 0,
-      edition: 0,
+      item: {},
     };
   }
 
@@ -24,22 +16,16 @@ class Item extends StoreModule {
   }
 
   async loadItem(id) {
+    console.log('GFDGSDFGSFD');
     const response = await fetch(
       `api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`
     );
     const json = await response.json();
+    console.log(json.result);
     this.setState(
       {
         ...this.getState(),
-        title: json.result.title,
-        description: json.result.description,
-        category: json.result.category.title,
-        madeIn: {
-          title: json.result.madeIn.title,
-          code: json.result.madeIn.code,
-        },
-        price: json.result.price,
-        edition: json.result.edition,
+        item: json.result,
       },
       'Загружена страница товара из АПИ'
     );

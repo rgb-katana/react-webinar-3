@@ -14,9 +14,9 @@ function BasketTool({sum, amount, onOpen}) {
 
   return (
     <div className={cn()}>
-      <Link className={cn('main')} to={'/'}>
+      {/* <Link className={cn('main')} to={'/'}>
         Главная
-      </Link>
+      </Link> */}
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
         {amount

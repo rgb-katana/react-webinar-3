@@ -1,5 +1,6 @@
 /* Контрол с общими действиями */
 .BasketTool {
+  margin-left: auto;
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -10,15 +11,14 @@
   margin-left: auto;
 }
 
-.BasketTool-main {
+/* .BasketTool-main {
   color: #0087e9;
-  border-bottom: 2px solid #0087e9;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .BasketTool-main:hover {
   cursor: pointer;
-}
+} */
 
 .BasketTool-total {
   font-weight: bold;

@@ -6,11 +6,14 @@ import useStore from '../../store/use-store';
 import Head from '../../components/head';
 import BasketTool from '../../components/basket-tool';
 import ItemPageComponent from '../../components/item-page';
+import Menu from '../../components/menu';
 import {useCallback} from 'react';
 
 function ItemPage() {
   const {id} = useParams();
   const store = useStore();
+
+  console.log(store);
 
   useEffect(() => {
     store.actions.item.loadItem(id);
@@ -24,16 +27,10 @@ function ItemPage() {
   const select = useSelector((state) => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
-    title: state.item.title,
-    description: state.item.description,
-    category: state.item.category,
-    madeIn: {
-      title: state.item.madeIn.title,
-      code: state.item.madeIn.code,
-    },
-    price: state.item.price,
-    edition: state.item.edition,
+    item: state.item,
   }));
+
+  console.log(select);
 
   const callbacks = {
     // Добавление в корзину
@@ -50,22 +47,15 @@ function ItemPage() {
 
   return (
     <PageLayout>
-      <Head title={select.title}></Head>
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      ></BasketTool>
-      <ItemPageComponent
-        title={select.title}
-        description={select.description}
-        category={select.category}
-        madeIn={select.madeIn}
-        price={select.price}
-        edition={select.edition}
-        onAdd={callbacks.addToBasket}
-        id={id}
-      ></ItemPageComponent>
+      <Head title={select.item.item.category?.title}></Head>
+      <Menu>
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        ></BasketTool>
+      </Menu>
+      <ItemPageComponent {...select.item} {...callbacks}></ItemPageComponent>
     </PageLayout>
   );
 }
