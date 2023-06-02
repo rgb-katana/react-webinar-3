@@ -42,7 +42,10 @@ function Article() {
   return (
     <PageLayout>
       {select.currentUser ? (
-        <QuitHeader link={'/profile'} />
+        <QuitHeader
+          link={`/profile/${select.currentUser.id}`}
+          name={select.currentUser.name}
+        />
       ) : (
         <AuthHeader link={'/login'} />
       )}

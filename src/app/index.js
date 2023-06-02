@@ -5,6 +5,7 @@ import Main from './main';
 import Basket from './basket';
 import Article from './article';
 import Auth from './auth';
+import Profile from './profile';
 import useStore from '../hooks/use-store';
 
 /**
@@ -26,9 +27,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={'/login'} element={<Auth />} />
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
+        <Route path={'/login'} element={<Auth />} />
+        <Route path={'/profile/:id'} element={<Profile />} />
       </Routes>
 
       {activeModal === 'basket' && <Basket />}

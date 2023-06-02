@@ -9,15 +9,13 @@ import LocaleSelect from '../../containers/locale-select';
 import AuthHeader from '../../components/auth-header';
 import useSelector from '../../hooks/use-selector';
 import QuitHeader from '../../components/quit-header';
-import {useNavigate} from 'react-router-dom';
-import {useEffect} from 'react';
+import ProfilePage from '../../components/profile-page';
+import {useParams} from 'react-router-dom';
 
-import AuthPage from '../../components/auth-page';
+function Profile() {
+  const params = useParams();
 
-function Auth() {
   const store = useStore();
-
-  const navigate = useNavigate();
 
   const {t} = useTranslate();
 
@@ -25,20 +23,18 @@ function Auth() {
     currentUser: state.user.currentUser,
   }));
 
+  console.log(select);
+
   const callbacks = {
     onSubmit: store.actions.user.login,
-    // onSuccessAuth: useEffect(() => {
-    //   navigate(`/profile/${select.currentUser?.id}`);
-    // }, [select.currentUser?.id]),
   };
+
+  const {email, name, phone, id} = select.currentUser;
 
   return (
     <PageLayout>
       {select.currentUser ? (
-        <QuitHeader
-          link={`/profile/${select.currentUser.id}`}
-          name={select.currentUser.name}
-        />
+        <QuitHeader link={`/profile/${id}`} name={name} />
       ) : (
         <AuthHeader link={'/login'} />
       )}
@@ -46,12 +42,9 @@ function Auth() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <AuthPage
-        onSubmit={callbacks.onSubmit}
-        // onSuccessAuth={callbacks.onSuccessAuth}
-      />
+      <ProfilePage email={email} name={name} phone={phone} />
     </PageLayout>
   );
 }
 
-export default memo(Auth);
+export default memo(Profile);

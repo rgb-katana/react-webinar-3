@@ -7,6 +7,9 @@ function QuitHeader(props) {
     <SideLayout padding="medium" side="end">
       <div className="quit-header">
         <div className="link">
+          <Link to={props.link}>{props.name}</Link>
+        </div>
+        <div className="link">
           <Link to={props.link}>
             <button>Выход</button>
           </Link>

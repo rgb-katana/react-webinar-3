@@ -16,7 +16,7 @@ class UserState extends StoreModule {
       });
       const json = await result.json();
 
-      const {username, email} = json.result;
+      const {username, email, _id} = json.result;
       const {name, phone} = json.result.profile;
 
       this.setState({
@@ -26,6 +26,7 @@ class UserState extends StoreModule {
           email,
           name,
           phone,
+          id: _id,
         },
       });
     } catch (error) {
@@ -59,6 +60,7 @@ class UserState extends StoreModule {
           email,
           name,
           phone,
+          id: _id,
         },
       });
 

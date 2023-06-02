@@ -24,6 +24,7 @@ function AuthPage(props) {
     try {
       props.onSubmit(login, password);
       setFormToEmpty();
+      // onSuccessAuth();
     } catch (error) {
       console.log(error);
     }
