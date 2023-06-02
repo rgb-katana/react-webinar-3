@@ -1,0 +1,35 @@
+.AuthPage {
+  padding: 42px 20px 0px 20px;
+}
+
+.AuthPage-bold {
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.AuthPage-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.AuthPage-form > *:not(:last-child) {
+  margin-bottom: 19px;
+}
+
+.AuthPage-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.AuthPage-input {
+  width: 203px;
+  height: 26px;
+}
+
+.AuthPage-label {
+  font-size: 16px;
+}
