@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -10,10 +10,12 @@ import AuthHeader from '../../components/auth-header';
 import useSelector from '../../hooks/use-selector';
 import QuitHeader from '../../components/quit-header';
 import ProfilePage from '../../components/profile-page';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 
 function Profile() {
   const params = useParams();
+
+  const navigate = useNavigate();
 
   const store = useStore();
 
@@ -23,18 +25,25 @@ function Profile() {
     currentUser: state.user.currentUser,
   }));
 
-  console.log(select);
+  useEffect(() => {
+    if (select.currentUser === null) navigate('/login');
+  }, [select.currentUser]);
 
   const callbacks = {
     onSubmit: store.actions.user.login,
+    logout: useCallback(async () => {
+      store.actions.user.logout();
+    }),
   };
-
-  const {email, name, phone, id} = select.currentUser;
 
   return (
     <PageLayout>
       {select.currentUser ? (
-        <QuitHeader link={`/profile/${id}`} name={name} />
+        <QuitHeader
+          link={`/profile/${select.currentUser?.id}`}
+          name={select.currentUser?.name}
+          onLogout={callbacks.logout}
+        />
       ) : (
         <AuthHeader link={'/login'} />
       )}
@@ -42,7 +51,11 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <ProfilePage email={email} name={name} phone={phone} />
+      <ProfilePage
+        email={select.currentUser?.email}
+        name={select.currentUser?.name}
+        phone={select.currentUser?.phone}
+      />
     </PageLayout>
   );
 }

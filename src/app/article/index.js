@@ -37,6 +37,10 @@ function Article() {
       (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
+
+    logout: useCallback(() => {
+      store.actions.user.logout();
+    }),
   };
 
   return (
@@ -45,6 +49,7 @@ function Article() {
         <QuitHeader
           link={`/profile/${select.currentUser.id}`}
           name={select.currentUser.name}
+          onLogout={callbacks.logout}
         />
       ) : (
         <AuthHeader link={'/login'} />

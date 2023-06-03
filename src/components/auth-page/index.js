@@ -2,14 +2,17 @@ import {memo} from 'react';
 import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import {useState} from 'react';
+
 import './style.css';
 
 const defaultFormFields = {
-  login: 'test_1',
-  password: '123456',
+  login: '',
+  password: '',
 };
 
 function AuthPage(props) {
+  const [error, setError] = useState(null);
+
   const cn = bem('AuthPage');
 
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -22,11 +25,12 @@ function AuthPage(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      props.onSubmit(login, password);
+      const id = await props.onSubmit(login, password);
       setFormToEmpty();
-      // onSuccessAuth();
+      props.onRedirect();
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
+      setError(error.message);
     }
   };
 
@@ -67,7 +71,7 @@ function AuthPage(props) {
             value={password}
           />
         </div>
-        {/* Оставить место для ошибки от сервера */}
+        {error ? <div className={cn('error')}>{error}</div> : ''}
         <div className={cn('button')}>
           <button type="submit">Войти</button>
         </div>

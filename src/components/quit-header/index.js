@@ -10,9 +10,7 @@ function QuitHeader(props) {
           <Link to={props.link}>{props.name}</Link>
         </div>
         <div className="link">
-          <Link to={props.link}>
-            <button>Выход</button>
-          </Link>
+          <button onClick={props.onLogout}>Выход</button>
         </div>
       </div>
     </SideLayout>

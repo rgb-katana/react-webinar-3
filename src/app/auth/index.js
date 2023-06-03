@@ -9,8 +9,8 @@ import LocaleSelect from '../../containers/locale-select';
 import AuthHeader from '../../components/auth-header';
 import useSelector from '../../hooks/use-selector';
 import QuitHeader from '../../components/quit-header';
-import {useNavigate} from 'react-router-dom';
 import {useEffect} from 'react';
+import {useNavigate, redirect} from 'react-router-dom';
 
 import AuthPage from '../../components/auth-page';
 
@@ -25,11 +25,13 @@ function Auth() {
     currentUser: state.user.currentUser,
   }));
 
+  useEffect(() => {
+    if (select.currentUser) navigate(`/profile/${select.currentUser?.id}`);
+  }, [select.currentUser]);
+
   const callbacks = {
     onSubmit: store.actions.user.login,
-    // onSuccessAuth: useEffect(() => {
-    //   navigate(`/profile/${select.currentUser?.id}`);
-    // }, [select.currentUser?.id]),
+    onRedirect: () => redirect(`/profile/${select.currentUser?.id}`),
   };
 
   return (
@@ -48,7 +50,7 @@ function Auth() {
       <Navigation />
       <AuthPage
         onSubmit={callbacks.onSubmit}
-        // onSuccessAuth={callbacks.onSuccessAuth}
+        onRedirect={callbacks.onRedirect}
       />
     </PageLayout>
   );

@@ -33,3 +33,9 @@
 .AuthPage-label {
   font-size: 16px;
 }
+
+.AuthPage-error {
+  font-size: 16px;
+  font-weight: 400;
+  color: #ff0000;
+}

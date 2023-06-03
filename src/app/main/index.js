@@ -10,6 +10,7 @@ import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import AuthHeader from '../../components/auth-header';
 import QuitHeader from '../../components/quit-header';
+import {useCallback} from 'react';
 
 import useSelector from '../../hooks/use-selector';
 
@@ -28,6 +29,16 @@ function Main() {
     currentUser: state.user.currentUser,
   }));
 
+  const callbacks = {
+    // Добавление в корзину
+
+    logout: useCallback(() => {
+      store.actions.user.logout();
+    }),
+  };
+
+  // const callbacks =
+
   const {t} = useTranslate();
 
   return (
@@ -36,6 +47,7 @@ function Main() {
         <QuitHeader
           link={`/profile/${select.currentUser.id}`}
           name={select.currentUser.name}
+          onLogout={callbacks.logout}
         />
       ) : (
         <AuthHeader link={'/login'} />

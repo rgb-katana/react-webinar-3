@@ -30,7 +30,7 @@ class UserState extends StoreModule {
         },
       });
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -66,8 +66,32 @@ class UserState extends StoreModule {
 
       localStorage.setItem('token', token);
       localStorage.setItem('id', _id);
+
+      return _id;
     } catch (error) {
       throw new Error(error);
+    }
+  };
+
+  logout = async () => {
+    console.log('here');
+    try {
+      console.log('here1');
+      const result = await fetch(`/api/v1/users/sign`, {
+        method: 'DELETE',
+        headers: {
+          'X-token': localStorage.getItem('token'),
+        },
+      });
+      const json = await result.json();
+      console.log(json);
+      this.setState({
+        ...this.getState(),
+        currentUser: null,
+      });
+      localStorage.clear();
+    } catch (error) {
+      console.log(error);
     }
   };
 }
