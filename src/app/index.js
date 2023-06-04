@@ -17,12 +17,15 @@ function App() {
 
   const activeModal = useSelector((state) => state.modals.name);
 
-  const token = localStorage.getItem('token');
-  const id = localStorage.getItem('id');
+  useEffect(() => {
+    store.actions.profile.loginByToken();
 
-  if (token) {
-    store.actions.user.loginByToken(id, token);
-  }
+    const fetchCategories = async () => {
+      await store.actions.categories.getCategories();
+    };
+
+    fetchCategories();
+  }, []);
 
   return (
     <>

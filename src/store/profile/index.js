@@ -1,13 +1,20 @@
 import StoreModule from '../module';
 
-class UserState extends StoreModule {
+class ProfileState extends StoreModule {
   initState() {
     return {
       currentUser: null,
     };
   }
 
-  loginByToken = async (id, token) => {
+  loginByToken = async (
+    id = localStorage.getItem('id'),
+    token = localStorage.getItem('token')
+  ) => {
+    if (!id || !token) {
+      return;
+    }
+
     try {
       const result = await fetch(`/api/v1/users/${id}`, {
         headers: {
@@ -47,7 +54,12 @@ class UserState extends StoreModule {
           'Content-type': 'application/json; charset=UTF-8',
         },
       });
+
       const json = await result.json();
+
+      if (result.status === 400) {
+        throw new Error(json.error.data.issues[0].message);
+      }
 
       const {token} = json.result;
       const {username, email, _id} = json.result.user;
@@ -96,4 +108,4 @@ class UserState extends StoreModule {
   };
 }
 
-export default UserState;
+export default ProfileState;

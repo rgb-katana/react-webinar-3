@@ -22,7 +22,7 @@ function Auth() {
   const {t} = useTranslate();
 
   const select = useSelector((state) => ({
-    currentUser: state.user.currentUser,
+    currentUser: state.profile.currentUser,
   }));
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function Auth() {
   }, [select.currentUser]);
 
   const callbacks = {
-    onSubmit: store.actions.user.login,
+    onSubmit: store.actions.profile.login,
     onRedirect: () => redirect(`/profile/${select.currentUser?.id}`),
   };
 

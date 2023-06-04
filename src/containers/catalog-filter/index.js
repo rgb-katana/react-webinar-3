@@ -9,70 +9,21 @@ import {useState, useEffect} from 'react';
 
 function CatalogFilter() {
   const store = useStore();
-
-  const [categories, setCategories] = useState([]);
-
-  const makeSubcategories = (categoryArray) => {
-    const result = [];
-    for (const category1 of categoryArray) {
-      category1.subscategories = [];
-      if (category1.parent === null) result.push(category1);
-      else {
-        for (const category2 of categoryArray) {
-          if (category1.parent._id === category2._id) {
-            category2.subscategories.push(category1);
-            result.push(category2);
-            break;
-          }
-        }
-      }
-    }
-
-    const resultObject = {};
-    const finalResult = [];
-    for (const element of result) {
-      if (element.parent === null && !resultObject[element.title]) {
-        resultObject[element.title] = element;
-        finalResult.push(element);
-      }
-    }
-    return finalResult;
-  };
-
-  const createInterface = (array, res = [], levelOfDepth = 0) => {
-    if (!array.length) return res;
-
-    res.push({
-      title: `${'- '.repeat(levelOfDepth)}${array[0].title}`,
-      value: array[0]._id,
-    });
-
-    if (array[0].subscategories) {
-      createInterface(array[0].subscategories, res, levelOfDepth + 1);
-    }
-    return createInterface(array.slice(1), res, levelOfDepth);
-  };
-
-  const getCategories = async () => {
-    const result = await fetch(
-      '/api/v1/categories?fields=_id,title,parent(_id)&limit=1000'
-    );
-    const json = await result.json();
-    return createInterface(makeSubcategories(json.result.items));
-  };
+  const [theme, setTheme] = useState('');
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const categories = await getCategories();
-      setCategories(categories);
+    const handleResize = () => {
+      if (window.innerWidth > 780) setTheme('big');
+      else setTheme('');
     };
 
-    fetchCategories();
+    window.addEventListener('resize', handleResize);
   }, []);
 
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    categories: state.categories.categories,
     category: state.catalog.params.category,
   }));
 
@@ -95,6 +46,8 @@ function CatalogFilter() {
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
+  console.log(select.categories);
+
   const options = {
     sort: useMemo(
       () => [
@@ -105,9 +58,9 @@ function CatalogFilter() {
       ],
       []
     ),
-    category: useMemo(
-      () => [{value: 'all', title: 'Все'}, ...categories],
-      [categories]
+    categories: useMemo(
+      () => [{value: 'all', title: 'Все'}, ...select.categories],
+      [select.categories]
     ),
   };
 
@@ -116,7 +69,7 @@ function CatalogFilter() {
   return (
     <SideLayout padding="medium">
       <Select
-        options={options.category}
+        options={options.categories}
         value={select.category}
         onChange={callbacks.onCategory}
       />
@@ -129,6 +82,7 @@ function CatalogFilter() {
         value={select.query}
         onChange={callbacks.onSearch}
         placeholder={'Поиск'}
+        theme={theme}
         delay={1000}
       />
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

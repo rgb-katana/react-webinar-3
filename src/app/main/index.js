@@ -26,14 +26,14 @@ function Main() {
   );
 
   const select = useSelector((state) => ({
-    currentUser: state.user.currentUser,
+    currentUser: state.profile.currentUser,
   }));
 
   const callbacks = {
     // Добавление в корзину
 
     logout: useCallback(() => {
-      store.actions.user.logout();
+      store.actions.profile.logout();
     }),
   };
 

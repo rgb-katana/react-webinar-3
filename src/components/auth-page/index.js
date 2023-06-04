@@ -41,7 +41,7 @@ function AuthPage(props) {
 
   return (
     <div className={cn()}>
-      <h2 className={cn('bold')}>Вход</h2>
+      <h2 className={cn('bold', 'title')}>Вход</h2>
       <form className={cn('form')} onSubmit={handleSubmit}>
         <div className={cn('group')}>
           <label className={cn('label')} htmlFor="login">
@@ -79,5 +79,15 @@ function AuthPage(props) {
     </div>
   );
 }
+
+AuthPage.propTypes = {
+  onSubmit: PropTypes.func,
+  onRedirect: PropTypes.func,
+};
+
+AuthPage.defaultProps = {
+  onSubmit: () => {},
+  onRedirect: () => {},
+};
 
 export default memo(AuthPage);

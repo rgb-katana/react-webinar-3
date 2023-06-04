@@ -23,4 +23,10 @@ function ProfilePage(props) {
   );
 }
 
+ProfilePage.propTypes = {
+  name: PropTypes.string,
+  phone: PropTypes.string,
+  email: PropTypes.string,
+};
+
 export default memo(ProfilePage);

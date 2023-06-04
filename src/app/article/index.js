@@ -26,7 +26,7 @@ function Article() {
   const select = useSelector((state) => ({
     article: state.article.data,
     waiting: state.article.waiting,
-    currentUser: state.user.currentUser,
+    currentUser: state.profile.currentUser,
   }));
 
   const {t} = useTranslate();
@@ -39,7 +39,7 @@ function Article() {
     ),
 
     logout: useCallback(() => {
-      store.actions.user.logout();
+      store.actions.profile.logout();
     }),
   };
 

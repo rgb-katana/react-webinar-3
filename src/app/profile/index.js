@@ -10,11 +10,9 @@ import AuthHeader from '../../components/auth-header';
 import useSelector from '../../hooks/use-selector';
 import QuitHeader from '../../components/quit-header';
 import ProfilePage from '../../components/profile-page';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 function Profile() {
-  const params = useParams();
-
   const navigate = useNavigate();
 
   const store = useStore();
@@ -22,7 +20,7 @@ function Profile() {
   const {t} = useTranslate();
 
   const select = useSelector((state) => ({
-    currentUser: state.user.currentUser,
+    currentUser: state.profile.currentUser,
   }));
 
   useEffect(() => {
@@ -30,9 +28,9 @@ function Profile() {
   }, [select.currentUser]);
 
   const callbacks = {
-    onSubmit: store.actions.user.login,
+    onSubmit: store.actions.profile.login,
     logout: useCallback(async () => {
-      store.actions.user.logout();
+      store.actions.profile.logout();
     }),
   };
 
