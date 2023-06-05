@@ -7,32 +7,27 @@ class ProfileState extends StoreModule {
     };
   }
 
-  loginByToken = async (
-    id = localStorage.getItem('id'),
-    token = localStorage.getItem('token')
-  ) => {
-    if (!id || !token) {
+  loginByToken = async (token = localStorage.getItem('token')) => {
+    if (!token) {
       return;
     }
 
     try {
-      const result = await fetch(`/api/v1/users/${id}`, {
+      const result = await fetch(`/api/v1/users/self`, {
         headers: {
           'X-token': token,
         },
       });
       const json = await result.json();
 
-      const {username, email, _id} = json.result;
-      const {name, phone} = json.result.profile;
+      const {username, _id} = json.result;
+      const {name} = json.result.profile;
 
       this.setState({
         ...this.getState(),
         currentUser: {
           username,
-          email,
           name,
-          phone,
           id: _id,
         },
       });
@@ -62,22 +57,19 @@ class ProfileState extends StoreModule {
       }
 
       const {token} = json.result;
-      const {username, email, _id} = json.result.user;
-      const {name, phone} = json.result.user.profile;
+      const {username, _id} = json.result.user;
+      const {name} = json.result.user.profile;
 
       this.setState({
         ...this.getState(),
         currentUser: {
           username,
-          email,
           name,
-          phone,
           id: _id,
         },
       });
 
       localStorage.setItem('token', token);
-      localStorage.setItem('id', _id);
 
       return _id;
     } catch (error) {
@@ -86,17 +78,13 @@ class ProfileState extends StoreModule {
   };
 
   logout = async () => {
-    console.log('here');
     try {
-      console.log('here1');
-      const result = await fetch(`/api/v1/users/sign`, {
+      await fetch(`/api/v1/users/sign`, {
         method: 'DELETE',
         headers: {
           'X-token': localStorage.getItem('token'),
         },
       });
-      const json = await result.json();
-      console.log(json);
       this.setState({
         ...this.getState(),
         currentUser: null,

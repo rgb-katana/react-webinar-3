@@ -10,7 +10,7 @@ import AuthHeader from '../../components/auth-header';
 import useSelector from '../../hooks/use-selector';
 import QuitHeader from '../../components/quit-header';
 import ProfilePage from '../../components/profile-page';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 function Profile() {
   const navigate = useNavigate();
@@ -19,7 +19,12 @@ function Profile() {
 
   const {t} = useTranslate();
 
+  useInit(() => {
+    store.actions.profileInfo.loadProfile();
+  }, []);
+
   const select = useSelector((state) => ({
+    profile: state.profileInfo.profileData,
     currentUser: state.profile.currentUser,
   }));
 
@@ -50,9 +55,9 @@ function Profile() {
       </Head>
       <Navigation />
       <ProfilePage
-        email={select.currentUser?.email}
-        name={select.currentUser?.name}
-        phone={select.currentUser?.phone}
+        email={select.profile.email}
+        name={select.profile.name}
+        phone={select.profile.phone}
       />
     </PageLayout>
   );

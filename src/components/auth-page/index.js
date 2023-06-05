@@ -29,7 +29,6 @@ function AuthPage(props) {
       setFormToEmpty();
       props.onRedirect();
     } catch (error) {
-      console.log(error.message);
       setError(error.message);
     }
   };

@@ -46,8 +46,6 @@ function CatalogFilter() {
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
-  console.log(select.categories);
-
   const options = {
     sort: useMemo(
       () => [
